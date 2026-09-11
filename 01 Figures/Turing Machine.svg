@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="200" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000" stroke="#000" stroke-width="2">
+  <marker id="a" overflow="visible" orient="auto">
+    <path transform="scale(-.2)" d="m5.77 0-8.65 5v-10z" fill-rule="evenodd"/>
+  </marker>
+  <g>
+    <rect x="72" y="127" width="200" height="40" rx="5" ry="5" fill="none"/>
+    <path d="m170 127.42v-22.421"/>
+    <path d="m65 40v35"/>
+    <path d="m95 40v35"/>
+    <path d="m125 40v35"/>
+    <path d="m155 40v35"/>
+    <path d="m185 40v35"/>
+    <path d="m215 40v35"/>
+    <path d="m245 40v35"/>
+    <path d="m275 40v35"/>
+    <path d="m305 40v35"/>
+    <path d="m335 40v35"/>
+  </g>
+  <g fill-rule="evenodd">
+    <path d="m157 105v-20l5-5h16l5 5v20z"/>
+    <path d="m134 90h13" marker-start="url(#a)" stroke-width="4"/>
+    <path d="m206 90h-13" marker-start="url(#a)" stroke-width="4"/>
+  </g>
+  <g stroke-linecap="round" >
+    <path d="m50 40h300"/>
+    <path d="m50 75h300"/>
+  </g>
+  <g font-family="Quattrocento Sans" font-size="12" stroke-width="0.2">
+    <text x="49" y="32">Tape with Symbols</text>
+    <text x="189" y="116">Read/Write Head</text>
+    <text x="167" y="152" text-anchor="middle">Machine with Finite States</text>
+    <text x="75" y="60" font-style="italic">...</text>
+    <text x="105" y="60" font-style="italic">S<tspan dy="4" font-size="9">1</tspan></text>
+    <text x="135" y="60" font-style="italic">S<tspan dy="4" font-size="9">2</tspan></text>
+    <text x="165" y="60" font-style="italic">S<tspan dy="4" font-size="9">3</tspan></text>
+    <text x="195" y="60" font-style="italic">...</text>
+    <text x="225" y="60" font-style="italic">S<tspan dy="4" font-size="9">N</tspan></text>
+    <text x="255" y="60" font-style="italic">...</text>
+    <text x="285" y="60" font-style="italic">b</text>
+    <text x="315" y="60" font-style="italic">b</text>
+  </g>
+</svg>

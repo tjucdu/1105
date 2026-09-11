@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="570" viewBox="40 25 820 570">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+      markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10Z" fill="#000000"/>
+    </marker>
+  </defs>
+
+  <rect x="40" y="25" width="820" height="570" fill="#ffffff"/>
+
+  <g font-family="Arial, sans-serif">
+    <rect x="55" y="190" width="270" height="230" rx="10"
+      fill="#ffffff" stroke="#000000" stroke-width="3"/>
+    <text x="190" y="270" fill="#000000" font-size="29" font-weight="700"
+      text-anchor="middle">
+      <tspan x="190">Universal</tspan>
+      <tspan x="190" dy="42">Turing</tspan>
+      <tspan x="190" dy="42">Machine</tspan>
+    </text>
+
+    <g fill="none" stroke="#000000" stroke-width="2.5">
+      <path d="M325 225 C400 145 455 110 540 100"
+        marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+      <path d="M325 305 C405 305 465 305 540 305"
+        marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+      <path d="M325 385 C400 465 455 500 540 510"
+        marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    </g>
+
+    <g fill="none" stroke="#000000" stroke-width="2">
+      <path d="M555 75H845 M555 125H845"/>
+      <path d="M575 75V125 M610 75V125 M645 75V125 M680 75V125
+               M715 75V125 M750 75V125 M785 75V125 M820 75V125"/>
+
+      <path d="M555 280H845 M555 330H845"/>
+      <path d="M575 280V330 M610 280V330 M645 280V330 M680 280V330
+               M715 280V330 M750 280V330 M785 280V330 M820 280V330"/>
+
+      <path d="M555 485H845 M555 535H845"/>
+      <path d="M575 485V535 M610 485V535 M645 485V535 M680 485V535
+               M715 485V535 M750 485V535 M785 485V535 M820 485V535"/>
+    </g>
+
+    <g fill="#000000" text-anchor="middle">
+      <text x="700" y="62" font-size="24" font-weight="700">Tape 1</text>
+      <text x="700" y="267" font-size="24" font-weight="700">Tape 2</text>
+      <text x="700" y="472" font-size="24" font-weight="700">Tape 3</text>
+    </g>
+
+    <g fill="#000000" font-size="27" text-anchor="middle">
+      <text x="700" y="165">
+        Description of <tspan fill="#3d3d3d" font-family="Georgia, serif"
+          font-size="32" font-style="italic">M</tspan>
+      </text>
+      <text x="700" y="370">
+        Tape contents of <tspan fill="#3d3d3d" font-family="Georgia, serif"
+          font-size="32" font-style="italic">M</tspan>
+      </text>
+      <text x="700" y="575">
+        State of <tspan fill="#3d3d3d" font-family="Georgia, serif"
+          font-size="32" font-style="italic">M</tspan>
+      </text>
+    </g>
+  </g>
+</svg>

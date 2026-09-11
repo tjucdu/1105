@@ -1,7 +1,10 @@
+% !TeX program = pdflatex
 \documentclass[11pt]{article}
 
 \usepackage[a4paper,margin=25mm]{geometry}
-\usepackage{fontspec}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage{amsmath,amssymb,mathtools}
 \usepackage{booktabs,array,tabularx}
 \usepackage{enumitem}
@@ -11,6 +14,27 @@
 \usepackage{tcolorbox}
 \usepackage{listings}
 \usepackage{microtype}
+\usepackage{svg}
+\svgsetup{inkscapelatex=false}
+\usepackage{multirow}
+\usepackage{xparse}
+\usepackage{calc}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+
+% Long-division layout adapted from https://tex.stackexchange.com/a/51043
+% (CC BY-SA 3.0; retrieved 2026-09-11).
+\newcommand{\PhantSQ}{\phantom{\sqrt{\hspace{0.3ex}}}}
+\ExplSyntaxOn
+\makeatletter
+\newcommand{\CMidRule}{\noalign\bgroup\@CMidRule{}}
+\NewDocumentCommand{\@CMidRule}{m O{0.0ex} O{0.0ex} m}{
+  \peek_meaning_remove_ignore_spaces:NTF \CMidRule
+    { \@CMidRule { #1 \cmidrule[\cmidrulewidth](l{#2}r{#3}){#4} } }
+    { \egroup #1 \cmidrule[\cmidrulewidth](l{#2}r{#3}){#4} }
+}
+\makeatother
+\ExplSyntaxOff
 
 \definecolor{navy}{HTML}{17365D}
 \definecolor{blue}{HTML}{2D5ABB}
@@ -30,6 +54,9 @@
 \rhead{Lecture Notes}
 \cfoot{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
+
+% Treat each top-level section as a chapter and start it on a new page.
+\AddToHook{cmd/section/before}{\clearpage}
 
 \newtcolorbox{keyidea}[1][]{colback=lightblue,colframe=blue,
   boxrule=0.7pt,arc=1.5mm,title={#1},fonttitle=\bfseries}
@@ -92,7 +119,40 @@ The familiar long-division procedure consists of a small collection of steps:
 \end{enumerate}
 Nothing in these steps requires a new creative insight once the procedure has been specified. A person or a machine can follow the same rules. This repeatable, rule-governed character is the first sense in which computation is \emph{mechanical}.
 
-\boardplaceholder[6.0cm]{Long division of $35{,}500{,}001$ by $113$, showing quotient $314{,}159$ and remainder $34$.}
+\[
+\begin{array}{r@{\,}l}
+  & \PhantSQ\hphantom{3\,5\,}3\,1\,4\,1\,5\,9 \\
+  1\,1\,3\, & \sqrt{3\,5\,5\,0\,0\,0\,0\,1} \\
+  & \PhantSQ 3\,3\,9\hphantom{\,0\,0\,0\,0\,0} \\ \CMidRule[0.0ex][5.0ex]{2-2}
+  & \PhantSQ\hphantom{3\,}1\,6\,0\hphantom{\,0\,0\,0\,0} \\
+  & \PhantSQ\hphantom{3\,}1\,1\,3\hphantom{\,0\,0\,0\,0} \\ \CMidRule[1.0ex][4.0ex]{2-2}
+  & \PhantSQ\hphantom{3\,5\,}4\,7\,0\hphantom{\,0\,0\,0} \\
+  & \PhantSQ\hphantom{3\,5\,}4\,5\,2\hphantom{\,0\,0\,0} \\ \CMidRule[2.0ex][3.0ex]{2-2}
+  & \PhantSQ\hphantom{3\,5\,5\,}1\,8\,0\hphantom{\,0\,0} \\
+  & \PhantSQ\hphantom{3\,5\,5\,}1\,1\,3\hphantom{\,0\,0} \\ \CMidRule[3.0ex][2.0ex]{2-2}
+  & \PhantSQ\hphantom{3\,5\,5\,0\,}6\,7\,0\hphantom{\,0} \\
+  & \PhantSQ\hphantom{3\,5\,5\,0\,}5\,6\,5\hphantom{\,0} \\ \CMidRule[4.0ex][1.0ex]{2-2}
+  & \PhantSQ\hphantom{3\,5\,5\,0\,}1\,0\,5\,1 \\
+  & \PhantSQ\hphantom{3\,5\,5\,0\,}1\,0\,1\,7 \\ \CMidRule[4.0ex][0.0ex]{2-2}
+  & \PhantSQ\hphantom{3\,5\,5\,0\,0\,0\,}3\,4
+\end{array}
+\]
+
+In treating long division as a mechanical process, we assume that its elementary
+operations---such as short division, single-digit multiplication, subtraction,
+comparison, and bringing down the next digit---can themselves be carried out
+mechanically. We call these primitive operations \emph{instructions}; the finite
+collection of instructions available to a machine is its \emph{instruction set}.
+At this level of abstraction, we specify what each instruction does without yet
+explaining how the machine implements it.
+
+The implementation of such instructions is studied at lower levels of computer
+systems. Relevant topics and courses include Boolean algebra and switching
+theory, digital logic design, combinational and sequential circuits, arithmetic
+circuits such as adders and multipliers, computer organization and architecture,
+instruction-set architecture, and processor microarchitecture. These subjects
+show how elementary mechanical steps can ultimately be realized using logic
+gates, registers, data paths, and control circuits.
 
 \subsection{Algorithm, input, and output}
 
@@ -100,7 +160,39 @@ Nothing in these steps requires a new creative insight once the procedure has be
 An \emph{algorithm} is a finite, unambiguous sequence of instructions for solving a class of problems. It specifies how to transform an input into an output.
 \end{definition}
 
-For the divisibility example, an input may consist of a dividend $a$ and a divisor $b$. The requested output determines the type of problem:
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[
+    algorithm step/.style={draw=blue,fill=lightblue,rounded corners=1.5mm,
+      minimum height=8mm,text width=0.56\linewidth,align=center},
+    flow/.style={-{Stealth[length=2.2mm]},thick,blue},
+    node distance=5mm
+  ]
+    \node[algorithm step] (divide) {1. Divide or estimate the next quotient digit};
+    \node[algorithm step,below=of divide] (multiply) {2. Multiply the divisor by that digit};
+    \node[algorithm step,below=of multiply] (subtract) {3. Subtract};
+    \node[algorithm step,below=of subtract] (bring) {4. Bring down the next dividend digit};
+    \node[algorithm step,below=of bring] (repeat) {5. Repeat if digits remain; otherwise stop};
+
+    \draw[flow] (divide) -- (multiply);
+    \draw[flow] (multiply) -- (subtract);
+    \draw[flow] (subtract) -- (bring);
+    \draw[flow] (bring) -- (repeat);
+    \draw[flow] (repeat.west) -- ++(-1.0,0)
+      |- node[pos=0.28,left,align=right]{digits\\remain} (divide.west);
+  \end{tikzpicture}
+  \caption{The five-step long-division algorithm.}
+  \label{fig:long-division-algorithm}
+\end{figure}
+
+For the divisibility example, an input may consist of a dividend $a$ and a
+divisor $b$. Although our numerical example is small enough to write on one
+line, computer science studies the entire family of possible inputs rather than
+only this one instance. The dividend may be extremely long---possibly millions
+or billions of digits---so an algorithm must describe a uniform procedure that
+works regardless of the particular input length. If the dividend has $n$ digits,
+we treat $n$ as its input size and ask how the algorithm's time and memory usage
+grow as $n$ increases. The requested output then determines the type of problem:
 
 \begin{center}
 \begin{tabularx}{0.92\linewidth}{>{\bfseries}p{0.23\linewidth}X p{0.27\linewidth}}
@@ -115,11 +207,36 @@ Optimization & the best feasible object or value & Which valid solution has mini
 \end{tabularx}
 \end{center}
 
-The output $34$ solves the remainder-search problem. The output \emph{no} solves the original decision problem. Keeping the problem specification separate from the method prevents a common conceptual mistake.
+A search problem asks us to produce a particular object, often called a
+\emph{solution} or \emph{witness}, that satisfies specified conditions. For many
+important search problems, if we are given a candidate solution, we can verify
+efficiently that it is correct, even though finding such a solution may be much
+harder. This distinction between finding and verifying a solution will become
+important when we discuss the complexity class NP.
+
+The output $34$ solves the remainder-search problem. The output \emph{no} solves
+the original decision problem.
 
 \subsection{Correctness and efficiency}
 
 The same function can have several algorithms. Repeatedly subtracting $113$ from $35{,}500{,}001$ will eventually produce the correct remainder, but it needs roughly $314{,}159$ subtractions. Long division processes the input one digit at a time and therefore requires a number of rounds proportional to the number of digits.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[
+    algorithm step/.style={draw=blue,fill=lightblue,rounded corners=1.5mm,
+      minimum height=10mm,text width=0.48\linewidth,align=center},
+    flow/.style={-{Stealth[length=2.2mm]},thick,blue}
+  ]
+    \node[algorithm step] (subtract)
+      {Subtract the divisor once: $r\gets r-b$};
+    \draw[flow] (subtract.south east) -- ++(12mm,0)
+      |- node[pos=0.5,right,yshift=-5mm,align=left]{repeat while\\$r\ge b$}
+      (subtract.north east);
+  \end{tikzpicture}
+  \caption{The repeated-subtraction algorithm for the divisibility problem.}
+  \label{fig:repeated-subtraction-division}
+\end{figure}
 
 This example separates two questions:
 \begin{itemize}
@@ -148,7 +265,12 @@ The transition function has the form
 \]
 where $q$ is the current state, $a$ is the scanned symbol, $q'$ is the next state, $b$ is the symbol written to the tape, and $D\in\{L,R\}$ is the direction of movement.
 
-\boardplaceholder[6.4cm]{Turing machine: an unbounded tape, a read/write head, and a finite-state controller. Include labels for read, write, move left/right, and machine state.}
+\begin{figure}[htbp]
+  \centering
+  \includesvg[width=0.5\linewidth]{01 Figures/Turing Machine.svg}
+  \caption{The basic components of a Turing machine.}
+  \label{fig:turing-machine-components}
+\end{figure}
 
 \subsection{Why one-dimensional and unbounded?}
 
@@ -156,9 +278,56 @@ A sheet of paper is two-dimensional, but its cells can be enumerated and placed 
 
 The tape is \emph{unbounded} because the size of a valid input has no fixed upper limit. For any particular run, the machine uses only finitely many cells. If it needs more, the model permits more tape. This idealization separates computability from the accidental memory limit of a physical computer.
 
-The controller has only \emph{finitely many} states. An infinitely complicated controller could simply encode an answer for every input, turning computation into a lookup table. Finite control forces the machine to obtain answers by applying reusable rules.
+\begin{figure}[htbp]
+  \centering
+  \includesvg[width=0.5\linewidth]{01 Figures/2D to 1D.svg}
+  \caption{Mapping a two-dimensional grid to a one-dimensional tape.}
+  \label{fig:two-dimensional-to-one-dimensional-tape}
+\end{figure}
 
-\boardplaceholder[4.8cm]{Classroom mapping from a two-dimensional grid of paper cells to a one-dimensional tape.}
+\subsection{Finite-state control}
+
+The machine has only \emph{finitely many} states. This resembles human mechanical
+work: the brain keeps limited control information in mind, while details are
+recorded externally on paper. In a Turing machine, the states provide limited
+internal control and the tape provides external memory.
+
+LEGO offers a similar analogy. There are finitely many types of pieces, yet
+arbitrarily many copies can be combined to build models without a fixed size
+limit. Likewise, a Turing machine reuses finitely many states and rules across
+arbitrarily many tape cells.
+
+Finite control is required for two reasons. First, a mechanical controller must
+have a finite description and use limited physical resources. Second, infinitely
+many states could store one answer for every possible input. The machine would
+then be an infinite lookup table or enumeration, not an algorithm applying
+reusable steps. Finite states prevent this shortcut and require genuine
+computation by a finite set of rules.
+
+\subsection{Unbounded execution and halting}
+
+Unbounded execution means that the model imposes no fixed upper limit on the
+number of steps a computation may take. It does not mean that every computation
+runs forever. A particular run may halt after finitely many steps, but different
+inputs may require increasingly many steps, and some runs may never halt.
+
+Unbounded execution is different from unbounded memory. A machine can execute
+forever using only a fixed amount of tape by repeatedly visiting the same cells
+in a loop. Conversely, the unbounded tape means that no fixed memory limit is
+imposed in advance, although only finitely many cells have been visited at any
+finite point in a run. Time counts transitions; memory counts the tape cells used.
+
+\begin{definition}[Halting]
+A computation \emph{halts} when the machine reaches a designated halting state
+or when no transition rule applies. This event is its \emph{halting condition}.
+If the condition is never reached, the machine continues executing indefinitely.
+\end{definition}
+
+For algorithms computing a function, a correct algorithm must halt on every
+input covered by its specification and produce the required output. Reactive
+systems such as network services, by contrast, are specified to run
+indefinitely; their correctness is defined by safety and liveness properties
+rather than eventual termination.
 
 \subsection{A Turing-machine view of long division}
 
@@ -167,7 +336,13 @@ Fix the divisor at $113$. A state can record the current remainder $r$, where $0
   t=10r+d,\qquad c=\left\lfloor\frac{t}{113}\right\rfloor,
   \qquad r'=t\bmod113.
 \]
-The machine writes the quotient digit $c$, moves right, and changes to the state representing $r'$. For the input $35500001$, the computation is:
+The machine writes the quotient digit $c$ to the tape, moves right, and changes
+to the state representing $r'$. The remainder can be kept in the finite control
+because it is always one of the $113$ values from $0$ to $112$. The quotient is
+different: it can have nearly as many digits as the dividend and therefore has
+no fixed maximum length. A finite set of states cannot store an arbitrarily long
+quotient, so the machine must write its digits incrementally to the tape. For the
+input $35500001$, the computation is:
 
 \begin{center}
 \small
@@ -197,7 +372,12 @@ The Turing machine is not a blueprint for a fast computer. It is a deliberately 
 
 \subsection{The Euclidean algorithm}
 
-To find $\gcd(404,96)$, repeatedly replace the larger pair by the divisor and the remainder:
+Another example problem is to find the \emph{greatest common divisor}: the largest
+positive integer that divides both given integers without a remainder. In this
+example, we want to find the greatest common divisor of $404$ and $96$, written
+$\gcd(404,96)$.
+
+To compute it, repeatedly replace the larger pair by the divisor and the remainder:
 \begin{align*}
 404 &= 4\cdot96+20,\\
  96 &= 4\cdot20+16,\\
@@ -206,25 +386,92 @@ To find $\gcd(404,96)$, repeatedly replace the larger pair by the divisor and th
 \end{align*}
 The last nonzero remainder is $4$, so $\gcd(404,96)=4$.
 
-The Euclidean algorithm can be summarized as follows:
+Like long division, this procedure uses a fixed collection of operations and a
+repeat rule. We can therefore design another Turing machine whose states
+implement it.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[
+    algorithm step/.style={draw=blue,fill=lightblue,rounded corners=1.5mm,
+      minimum height=8mm,text width=0.56\linewidth,align=center},
+    flow/.style={-{Stealth[length=2.2mm]},thick,blue},
+    node distance=5mm
+  ]
+    \node[algorithm step] (divide)
+      {1. Divide $a$ by $b$ to obtain a quotient $q$};
+    \node[algorithm step,below=of divide] (subtract)
+      {2. Subtract $qb$ from $a$ to obtain the remainder $r=a-qb$};
+    \node[algorithm step,below=of subtract] (replace)
+      {3. Replace the pair: $(a,b)\gets(b,r)$};
+    \node[algorithm step,below=of replace] (repeat)
+      {4. Repeat until $r=0$; the last nonzero remainder is the GCD};
+
+    \draw[flow] (divide) -- (subtract);
+    \draw[flow] (subtract) -- (replace);
+    \draw[flow] (replace) -- (repeat);
+    \draw[flow] (repeat.west) -- ++(-1.0,0)
+      |- node[pos=0.28,left,align=right]{$r\ne0$} (divide.west);
+  \end{tikzpicture}
+  \caption{The four-step Euclidean algorithm for computing a greatest common divisor.}
+  \label{fig:euclidean-algorithm}
+\end{figure}
+
+The Euclidean algorithm can be implemented directly as follows:
+\begin{center}
+\begin{minipage}{0.67\linewidth}
 \begin{lstlisting}[language=Python]
 def gcd(a, b):
     while b != 0:
         a, b = b, a % b
     return a
 \end{lstlisting}
+\end{minipage}
+\end{center}
 
-Like long division, this procedure uses a fixed collection of operations and a repeat rule. We can therefore design another Turing machine whose states implement it. Prime factorization offers a different algorithm for the same function, usually with a very different cost.
+\subsection{The prime-factorization method}
 
-\boardplaceholder[5.2cm]{Euclidean algorithm for $404$ and $96$, with the successive pairs $(404,96)$, $(96,20)$, $(20,16)$, $(16,4)$.}
+Prime factorization provides another method for finding a greatest common
+divisor. Factor each input into primes, retain every prime shared by both
+factorizations, and use the smaller exponent when a shared prime occurs more
+than once. For the same example,
+\[
+  404=2^2\cdot101,
+  \qquad
+  96=2^5\cdot3.
+\]
+The only shared prime is $2$, and the smaller exponent is $2$. Therefore,
+\[
+  \gcd(404,96)=2^2=4.
+\]
+This method computes the same GCD function as the Euclidean algorithm, but it
+requires prime factorizations and therefore has a very different computational
+cost.
+
+\begin{conceptcheck}[Homework]
+Our course code is $44{,}511{,}105$. Find its prime factorization.
+\end{conceptcheck}
 
 \subsection{Functions versus algorithms}
 
 \begin{definition}[Function and algorithm]
-A \emph{function} specifies what output corresponds to each input. An \emph{algorithm} specifies how to produce that output. Several algorithms may compute the same function.
+The \emph{problem specification} states what output is required for each valid
+input. When every input has a unique output, this input--output relationship is
+a \emph{function}; a search problem may instead permit several valid outputs.
+An \emph{algorithm} is a particular sequence of instructions for computing an
+output that satisfies the specification. Thus, a function specifies \emph{what}
+must be computed, whereas an algorithm specifies \emph{how} to compute it.
+Several different algorithms may compute the same function or solve the same
+problem.
 \end{definition}
 
-For example, $\gcd(a,b)$ is a function. The Euclidean algorithm and a factorization-based method are algorithms that compute it. Integer multiplication is also a function. The schoolbook multiplication algorithm for two $n$-digit integers uses $O(n^2)$ single-digit multiplications, while faster multiplication algorithms compute the same function with a lower asymptotic running time.
+For example, $\gcd(a,b)$ is a function. The Euclidean algorithm and a
+factorization-based method are algorithms that compute it.
+
+Integer multiplication is also a function. The schoolbook multiplication
+algorithm for two $n$-digit integers uses $O(n^2)$ single-digit multiplications,
+while faster multiplication algorithms compute the same function with a lower
+asymptotic running time.
 
 \section{The Universal Turing Machine}
 
@@ -234,24 +481,20 @@ Building a separate physical machine for every algorithm would be possible in pr
 \]
 It reads the description of $M$ and simulates $M$ step by step on $x$. Thus, one fixed machine can perform any computation described by another Turing machine.
 
-\boardplaceholder[5.8cm]{Universal Turing machine with input $\langle M\rangle$ and $x$, showing $U$ simulating $M(x)$.}
+\begin{figure}[htbp]
+  \centering
+  \includesvg[width=0.7\linewidth]{01 Figures/Universal Turing Machine.svg}
+  \caption{A three-tape organization of a universal Turing machine.}
+  \label{fig:three-tape-universal-turing-machine}
+\end{figure}
+
+In this organization, Tape 1 stores the encoded description of $M$, Tape 2
+stores the simulated contents of $M$'s tape, and Tape 3 records $M$'s current
+state. The universal machine repeatedly consults the description on Tape 1 and
+updates Tapes 2 and 3 exactly as $M$ would, thereby reproducing $M$'s computation
+one transition at a time.
 
 The key idea is that a program and ordinary data can both be represented as symbols. A program can therefore be stored, copied, inspected, interpreted, compiled, or generated like other data. This \emph{program-as-data} principle underlies stored-program computers, operating systems, compilers, interpreters, program analyzers, and coding tools.
-
-\section{Stored-Program Computers}
-
-In a stored-program computer, memory contains both instructions and data. A CPU repeatedly performs a fetch--decode--execute cycle:
-\begin{enumerate}
-  \item fetch the instruction whose address is in the program counter;
-  \item decode the instruction;
-  \item execute it and update registers or memory;
-  \item update the program counter.
-\end{enumerate}
-Conditional branches and jumps change the program counter, making selection and repetition possible.
-
-The von Neumann architecture is a prominent organization of this idea: a processor communicates with a shared memory that stores both code and data. It is a practical architecture, while a Turing machine is a mathematical model. Both embody finite control operating on expandable memory.
-
-\boardplaceholder[6.0cm]{Von Neumann architecture: CPU with control unit, ALU, registers and program counter; shared memory containing code and data; input/output connections.}
 
 \section{The Church--Turing Thesis}
 
@@ -295,6 +538,21 @@ This result is a consequence of the same program-as-data principle that makes un
 Universal computers can simulate arbitrary programs, but no universal program can perfectly predict every semantic property of arbitrary programs. Rice's theorem generalizes this limitation: every nontrivial semantic property of the function computed by an arbitrary program is undecidable.
 \end{keyidea}
 
+\section{Stored-Program Computers}
+
+In a stored-program computer, memory contains both instructions and data. A CPU repeatedly performs a fetch--decode--execute cycle:
+\begin{enumerate}
+  \item fetch the instruction whose address is in the program counter;
+  \item decode the instruction;
+  \item execute it and update registers or memory;
+  \item update the program counter.
+\end{enumerate}
+Conditional branches and jumps change the program counter, making selection and repetition possible.
+
+The von Neumann architecture is a prominent organization of this idea: a processor communicates with a shared memory that stores both code and data. It is a practical architecture, while a Turing machine is a mathematical model. Both embody finite control operating on expandable memory.
+
+\boardplaceholder[6.0cm]{Von Neumann architecture: CPU with control unit, ALU, registers and program counter; shared memory containing code and data; input/output connections.}
+
 \section{Complexity: The Cost of Computation}
 
 Computability asks whether some algorithm exists. Complexity asks how resources grow with input size. The most common resources are running time and memory.
@@ -325,7 +583,7 @@ F(0)=0,\qquad F(1)=1,\qquad F(n)=F(n-1)+F(n-2)
 does not determine a unique algorithm.
 
 \begin{center}
-\begin{tabularx}{0.94\linewidth}{>{\bfseries}p{0.28\linewidth}p{0.20\linewidth}p{0.20\linewidth}X}
+\begin{tabularx}{0.94\linewidth}{>{\bfseries\raggedright\arraybackslash}p{0.28\linewidth}>{\raggedright\arraybackslash}p{0.20\linewidth}>{\raggedright\arraybackslash}p{0.20\linewidth}>{\raggedright\arraybackslash}X}
 \toprule
 Method & Time & Extra space & Main idea \\
 \midrule

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="510" height="510" viewBox="0 0 510 510" role="img" aria-labelledby="title desc">
+  <title id="title">Diagonal zigzag enumeration of lattice points</title>
+  <desc id="desc">A six by six grid with centered enumeration labels connected in order by red arrows.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#ff2f2f"/>
+    </marker>
+    <style>
+      .grid { stroke:#a7a7a7; stroke-width:2.2; }
+      .axis-label { fill:#3d3d3d; font-family:"Quattrocento Sans",sans-serif; font-size:28px; text-anchor:middle; dominant-baseline:middle; }
+      .index { fill:#3157ff; font-family:"Quattrocento Sans",sans-serif; font-size:27px; font-weight:400; text-anchor:middle; dominant-baseline:central; paint-order:stroke fill; stroke:#ffffff; stroke-width:5px; stroke-linejoin:round; }
+      .step { fill:none; stroke:#ff4242; stroke-width:2.5; stroke-linecap:round; marker-end:url(#arrow); }
+    </style>
+  </defs>
+  <rect width="510" height="510" fill="none"/>
+  <g class="grid">
+    <line x1="55" y1="52" x2="55" y2="510"/><line x1="120" y1="52" x2="120" y2="510"/>
+    <line x1="185" y1="52" x2="185" y2="510"/><line x1="250" y1="52" x2="250" y2="510"/>
+    <line x1="315" y1="52" x2="315" y2="510"/><line x1="380" y1="52" x2="380" y2="510"/>
+    <line x1="445" y1="52" x2="445" y2="510"/>
+    <line x1="55" y1="52" x2="510" y2="52"/><line x1="55" y1="117" x2="510" y2="117"/>
+    <line x1="55" y1="182" x2="510" y2="182"/><line x1="55" y1="247" x2="510" y2="247"/>
+    <line x1="55" y1="312" x2="510" y2="312"/><line x1="55" y1="377" x2="510" y2="377"/>
+    <line x1="55" y1="442" x2="510" y2="442"/>
+  </g>
+  <g class="axis-label">
+    <text x="87.5" y="28">1</text><text x="152.5" y="28">2</text><text x="217.5" y="28">3</text>
+    <text x="282.5" y="28">4</text><text x="347.5" y="28">5</text><text x="412.5" y="28">6</text>
+    <text x="28" y="84.5">1</text><text x="28" y="149.5">2</text><text x="28" y="214.5">3</text>
+    <text x="28" y="279.5">4</text><text x="28" y="344.5">5</text><text x="28" y="409.5">6</text>
+  </g>
+  <g>
+    <line class="step" x1="87.5" y1="104.5" x2="87.5" y2="128.5"/>
+    <line class="step" x1="99.5" y1="137.5" x2="140.5" y2="96.5"/>
+    <line class="step" x1="171.5" y1="84.5" x2="198.5" y2="84.5"/>
+    <line class="step" x1="205.5" y1="96.5" x2="164.5" y2="137.5"/>
+    <line class="step" x1="140.5" y1="161.5" x2="99.5" y2="202.5"/>
+    <line class="step" x1="87.5" y1="234.5" x2="87.5" y2="258.5"/>
+    <line class="step" x1="99.5" y1="267.5" x2="140.5" y2="226.5"/>
+    <line class="step" x1="164.5" y1="202.5" x2="205.5" y2="161.5"/>
+    <line class="step" x1="229.5" y1="137.5" x2="270.5" y2="96.5"/>
+    <line class="step" x1="302.5" y1="84.5" x2="326.5" y2="84.5"/>
+    <line class="step" x1="335.5" y1="96.5" x2="294.5" y2="137.5"/>
+    <line class="step" x1="270.5" y1="161.5" x2="229.5" y2="202.5"/>
+    <line class="step" x1="205.5" y1="226.5" x2="164.5" y2="267.5"/>
+    <line class="step" x1="140.5" y1="291.5" x2="99.5" y2="332.5"/>
+    <line class="step" x1="87.5" y1="364.5" x2="87.5" y2="388.5"/>
+    <line class="step" x1="99.5" y1="397.5" x2="140.5" y2="356.5"/>
+    <line class="step" x1="164.5" y1="332.5" x2="205.5" y2="291.5"/>
+    <line class="step" x1="229.5" y1="267.5" x2="270.5" y2="226.5"/>
+    <line class="step" x1="294.5" y1="202.5" x2="335.5" y2="161.5"/>
+    <line class="step" x1="359.5" y1="137.5" x2="400.5" y2="96.5"/>
+  </g>
+  <g class="index">
+    <text x="87.5" y="84.5">1</text><text x="87.5" y="149.5">2</text>
+    <text x="152.5" y="84.5">3</text><text x="217.5" y="84.5">4</text>
+    <text x="152.5" y="149.5">5</text><text x="87.5" y="214.5">6</text>
+    <text x="87.5" y="279.5">7</text><text x="152.5" y="214.5">8</text>
+    <text x="217.5" y="149.5">9</text><text x="282.5" y="84.5">10</text>
+    <text x="347.5" y="84.5">11</text><text x="282.5" y="149.5">12</text>
+    <text x="217.5" y="214.5">13</text><text x="152.5" y="279.5">14</text>
+    <text x="87.5" y="344.5">15</text><text x="87.5" y="409.5">16</text>
+    <text x="152.5" y="344.5">17</text><text x="217.5" y="279.5">18</text>
+    <text x="282.5" y="214.5">19</text><text x="347.5" y="149.5">20</text>
+    <text x="412.5" y="84.5">21</text>
+  </g>
+</svg>

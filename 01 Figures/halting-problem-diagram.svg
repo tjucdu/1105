@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1240" width="1080" height="1240" role="img" aria-label="Diagram of the halting problem diagonal argument">
+  <title>The Halting Problem: the Diagonal Argument</title>
+  <desc>A hypothetical decider H is used to build a program D that reverses H's prediction. Running D on its own code makes both possible answers of H wrong, so H cannot exist and the halting problem is undecidable.</desc>
+
+  <defs>
+    <marker id="ahBlack" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="ahBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f3a5f"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1080" height="1240" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="54" y="58" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="700" fill="#1a1a1a">The Halting Problem: the Diagonal Argument</text>
+  <text x="54" y="92" font-family="Segoe UI, Arial, sans-serif" font-size="16" fill="#5f5f5a">No single program can decide, for every program P and input x, whether P(x) halts.</text>
+
+  <!-- ================= BAND 1 ================= -->
+  <rect x="50" y="118" width="980" height="200" rx="16" fill="#fafafa" stroke="#dcdcdc" stroke-width="1.5"/>
+  <rect x="68" y="132" width="104" height="28" rx="4" fill="#1f3a5f"/>
+  <text x="120" y="152" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" letter-spacing="1" fill="#ffffff">ASSUME</text>
+  <text x="188" y="152" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="600" fill="#1a1a1a">a universal halting decider H exists</text>
+
+  <rect x="86" y="196" width="150" height="42" rx="6" fill="#ffffff" stroke="#b9b9b3"/>
+  <text x="161" y="223" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" fill="#1a1a1a">P (program)</text>
+  <rect x="86" y="250" width="150" height="42" rx="6" fill="#ffffff" stroke="#b9b9b3"/>
+  <text x="161" y="277" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" fill="#1a1a1a">x (input)</text>
+
+  <path d="M238 217 H388" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#ahBlack)"/>
+  <path d="M238 271 H388" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#ahBlack)"/>
+
+  <rect x="396" y="176" width="184" height="140" rx="8" fill="#eef3f8" stroke="#1f3a5f" stroke-width="2.5"/>
+  <text x="488" y="234" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="700" fill="#1a1a1a">H</text>
+  <text x="488" y="262" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#5f5f5a">halts on every input,</text>
+  <text x="488" y="280" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#5f5f5a">answers correctly</text>
+
+  <path d="M582 222 H894" stroke="#1f3a5f" stroke-width="2" fill="none" marker-end="url(#ahBlue)"/>
+  <text x="608" y="210" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#1f3a5f">TRUE</text>
+  <text x="672" y="210" font-family="Segoe UI, Arial, sans-serif" font-size="16" fill="#1a1a1a">P(x) halts</text>
+
+  <path d="M582 272 H894" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#ahBlack)"/>
+  <text x="608" y="260" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#1a1a1a">FALSE</text>
+  <text x="678" y="260" font-family="Segoe UI, Arial, sans-serif" font-size="16" fill="#1a1a1a">P(x) runs forever</text>
+
+  <!-- ================= BAND 2 ================= -->
+  <rect x="50" y="338" width="980" height="372" rx="16" fill="#fafafa" stroke="#dcdcdc" stroke-width="1.5"/>
+  <rect x="68" y="352" width="132" height="28" rx="4" fill="#1f3a5f"/>
+  <text x="134" y="372" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" letter-spacing="1" fill="#ffffff">CONSTRUCT</text>
+  <text x="216" y="372" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="600" fill="#1a1a1a">build D from H, then run D on its own code</text>
+
+  <rect x="100" y="398" width="880" height="240" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="124" y="430" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700" fill="#1a1a1a">D(P)</text>
+  <text x="188" y="430" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#5f5f5a">= H's answer, reversed</text>
+
+  <rect x="124" y="488" width="64" height="44" rx="6" fill="#ffffff" stroke="#b9b9b3"/>
+  <text x="156" y="517" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="#1a1a1a">P</text>
+  <path d="M188 510 H238" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <path d="M238 455 V566" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <path d="M238 455 H348" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#ahBlack)"/>
+  <path d="M238 566 H348" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#ahBlack)"/>
+
+  <rect x="356" y="430" width="170" height="160" rx="8" fill="#eef3f8" stroke="#1f3a5f" stroke-width="2.5"/>
+  <text x="441" y="502" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700" fill="#1a1a1a">H</text>
+  <text x="441" y="532" text-anchor="middle" font-family="Consolas, monospace" font-size="14" fill="#5f5f5a">H(P, P)</text>
+
+  <path d="M526 460 H604" stroke="#1f3a5f" stroke-width="2" fill="none" marker-end="url(#ahBlue)"/>
+  <text x="565" y="450" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#1f3a5f">TRUE</text>
+  <rect x="610" y="425" width="214" height="70" rx="6" fill="#eef3f8" stroke="#1f3a5f" stroke-width="1.5"/>
+  <text x="628" y="450" font-family="Consolas, monospace" font-size="15" fill="#1a1a1a">while True: pass</text>
+  <text x="628" y="476" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#5f5f5a">loop forever</text>
+
+  <path d="M526 560 H604" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#ahBlack)"/>
+  <text x="565" y="550" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">FALSE</text>
+  <rect x="610" y="525" width="214" height="70" rx="6" fill="#ffffff" stroke="#b9b9b3" stroke-width="1.5"/>
+  <text x="628" y="550" font-family="Consolas, monospace" font-size="15" fill="#1a1a1a">return</text>
+  <text x="628" y="576" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#5f5f5a">then D stops (halts)</text>
+
+  <path d="M824 460 H946" stroke="#1f3a5f" stroke-width="2" fill="none" marker-end="url(#ahBlue)"/>
+  <text x="836" y="482" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#1f3a5f">D loops</text>
+  <path d="M824 560 H946" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#ahBlack)"/>
+  <text x="836" y="582" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#1a1a1a">D halts</text>
+
+  <path d="M980 620 H1014 V682 H156 V536" stroke="#1f3a5f" stroke-width="2" fill="none" stroke-dasharray="7 5" marker-end="url(#ahBlue)"/>
+  <rect x="452" y="648" width="296" height="28" rx="4" fill="#ffffff" stroke="#b9b9b3"/>
+  <text x="600" y="668" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#1f3a5f">D(D): D's own code as input</text>
+
+  <!-- ================= BAND 3 ================= -->
+  <rect x="50" y="710" width="980" height="330" rx="16" fill="#fafafa" stroke="#dcdcdc" stroke-width="1.5"/>
+  <rect x="68" y="724" width="132" height="28" rx="4" fill="#1f3a5f"/>
+  <text x="134" y="744" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" letter-spacing="1" fill="#ffffff">CONTRADICT</text>
+  <text x="216" y="744" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="600" fill="#1a1a1a">H's answer is wrong in both cases</text>
+
+  <!-- Case 1 -->
+  <rect x="90" y="772" width="430" height="228" rx="8" fill="#ffffff" stroke="#c9c9c3" stroke-width="1.5"/>
+  <rect x="112" y="790" width="86" height="26" rx="4" fill="#1f3a5f"/>
+  <text x="155" y="808" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="0.5" fill="#ffffff">CASE 1</text>
+  <text x="212" y="810" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700" fill="#1a1a1a">H(D, D) = TRUE</text>
+  <path d="M305 824 V846" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#ahBlack)"/>
+  <text x="305" y="874" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="600" fill="#1a1a1a">so D(D) loops forever</text>
+  <text x="305" y="898" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#5f5f5a">by D's rule</text>
+  <path d="M305 910 V932" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#ahBlack)"/>
+  <text x="305" y="956" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#5f5f5a">H said: it halts</text>
+  <circle cx="248" cy="981" r="12" fill="#ffffff" stroke="#1f3a5f" stroke-width="1.5"/>
+  <text x="248" y="988" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="#1f3a5f">×</text>
+  <text x="272" y="987" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#1f3a5f">contradiction</text>
+
+  <!-- Case 2 -->
+  <rect x="560" y="772" width="430" height="228" rx="8" fill="#ffffff" stroke="#c9c9c3" stroke-width="1.5"/>
+  <rect x="582" y="790" width="86" height="26" rx="4" fill="#1f3a5f"/>
+  <text x="625" y="808" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="0.5" fill="#ffffff">CASE 2</text>
+  <text x="682" y="810" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700" fill="#1a1a1a">H(D, D) = FALSE</text>
+  <path d="M775 824 V846" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#ahBlack)"/>
+  <text x="775" y="874" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="600" fill="#1a1a1a">so D(D) returns (halts)</text>
+  <text x="775" y="898" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#5f5f5a">by D's rule</text>
+  <path d="M775 910 V932" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#ahBlack)"/>
+  <text x="775" y="956" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#5f5f5a">H said: it runs forever</text>
+  <circle cx="712" cy="981" r="12" fill="#ffffff" stroke="#1f3a5f" stroke-width="1.5"/>
+  <text x="712" y="988" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="#1f3a5f">×</text>
+  <text x="736" y="987" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#1f3a5f">contradiction</text>
+
+  <path d="M305 1004 L452 1054" stroke="#1f3a5f" stroke-width="2" fill="none" marker-end="url(#ahBlue)"/>
+  <path d="M775 1004 L628 1054" stroke="#1f3a5f" stroke-width="2" fill="none" marker-end="url(#ahBlue)"/>
+
+  <!-- Conclusion -->
+  <rect x="50" y="1058" width="980" height="114" rx="8" fill="#1f3a5f"/>
+  <text x="540" y="1104" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700" fill="#ffffff">No such H can exist: the halting problem is undecidable.</text>
+  <text x="540" y="1140" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#b7c8dd">Single programs can still be analysed; it is the perfectly general procedure that cannot exist.</text>
+
+  <text x="540" y="1206" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#5f5f5a">Self-reference alone is not the problem - D breaks H because it does the opposite of H's prediction.</text>
+</svg>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="900" viewBox="0 0 700 900">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+      markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 10 5 0 10Z" fill="#000000"/>
+    </marker>
+    <clipPath id="middle-universe">
+      <ellipse cx="350" cy="430" rx="250" ry="125"/>
+    </clipPath>
+    <clipPath id="lower-universe">
+      <ellipse cx="350" cy="730" rx="250" ry="125"/>
+    </clipPath>
+  </defs>
+
+  <rect width="700" height="900" fill="#ffffff"/>
+
+  <g font-family="Arial, sans-serif" fill="#000000">
+    <!-- Stage 1: the intuitive idea has not yet been classified. -->
+    <text x="350" y="38" font-size="25" font-weight="700" text-anchor="middle">
+      1. Before a formal model
+    </text>
+    <ellipse cx="350" cy="155" rx="250" ry="92"
+      fill="#ffffff" stroke="#000000" stroke-width="2.5"/>
+    <text x="350" y="112" font-size="22" text-anchor="middle">Universe of problems</text>
+    <g fill="#000000">
+      <circle cx="190" cy="150" r="5"/><circle cx="245" cy="195" r="5"/>
+      <circle cx="305" cy="145" r="5"/><circle cx="375" cy="190" r="5"/>
+      <circle cx="445" cy="140" r="5"/><circle cx="505" cy="185" r="5"/>
+    </g>
+    <text x="350" y="225" font-size="20" font-style="italic" text-anchor="middle">
+      Which problems are mechanically computable?
+    </text>
+
+    <path d="M350 260V292" fill="none" stroke="#000000" stroke-width="2.5"
+      marker-end="url(#arrow)"/>
+
+    <!-- Stage 2: the Turing machine makes the boundary precise. -->
+    <text x="350" y="330" font-size="25" font-weight="700" text-anchor="middle">
+      2. The Turing machine draws a boundary
+    </text>
+    <ellipse cx="350" cy="430" rx="250" ry="125"
+      fill="#ffffff" stroke="#000000" stroke-width="2.5"/>
+    <rect x="100" y="305" width="250" height="250" fill="#eeeeee"
+      clip-path="url(#middle-universe)"/>
+    <path d="M350 305 C315 350 388 385 347 430 C310 470 390 510 350 555"
+      fill="none" stroke="#000000" stroke-width="4"/>
+    <text x="225" y="415" font-size="23" font-weight="700" text-anchor="middle">
+      <tspan x="225">Computable</tspan><tspan x="225" dy="29">problems</tspan>
+    </text>
+    <text x="478" y="415" font-size="23" font-weight="700" text-anchor="middle">
+      <tspan x="478">Uncomputable</tspan><tspan x="478" dy="29">problems</tspan>
+    </text>
+    <rect x="18" y="495" width="142" height="46" rx="7"
+      fill="#ffffff" stroke="#000000" stroke-width="2"/>
+    <text x="89" y="525" font-size="19" font-weight="700" text-anchor="middle">
+      Turing machine
+    </text>
+    <path d="M160 518 C225 510 280 494 341 470" fill="none"
+      stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+    <path d="M350 582V610" fill="none" stroke="#000000" stroke-width="2.5"
+      marker-end="url(#arrow)"/>
+
+    <!-- Stage 3: equivalent models recover the same boundary. -->
+    <text x="350" y="648" font-size="25" font-weight="700" text-anchor="middle">
+      3. Other complete models find the same boundary
+    </text>
+    <ellipse cx="350" cy="755" rx="250" ry="105"
+      fill="#ffffff" stroke="#000000" stroke-width="2.5"/>
+    <rect x="100" y="650" width="250" height="210" fill="#eeeeee"
+      clip-path="url(#lower-universe)"/>
+    <path d="M350 650 C315 687 388 718 347 755 C310 790 390 825 350 860"
+      fill="none" stroke="#000000" stroke-width="4"/>
+    <text x="220" y="762" font-size="21" font-weight="700" text-anchor="middle">
+      Computable
+    </text>
+    <text x="480" y="762" font-size="21" font-weight="700" text-anchor="middle">
+      Uncomputable
+    </text>
+
+    <g font-size="17" text-anchor="middle">
+      <rect x="20" y="655" width="145" height="38" rx="6"
+        fill="#ffffff" stroke="#000000" stroke-width="2"/>
+      <text x="92" y="680">Lambda calculus</text>
+      <path d="M165 681 C235 690 286 706 340 725" fill="none"
+        stroke="#000000" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <rect x="535" y="698" width="145" height="38" rx="6"
+        fill="#ffffff" stroke="#000000" stroke-width="2"/>
+      <text x="607" y="723">Register machine</text>
+      <path d="M535 724 C470 730 410 738 357 747" fill="none"
+        stroke="#000000" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <rect x="18" y="820" width="165" height="38" rx="6"
+        fill="#ffffff" stroke="#000000" stroke-width="2"/>
+      <text x="100" y="845">Programming language</text>
+      <path d="M183 835 C245 825 293 810 342 787" fill="none"
+        stroke="#000000" stroke-width="2" marker-end="url(#arrow)"/>
+    </g>
+  </g>
+</svg>

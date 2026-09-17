@@ -386,6 +386,11 @@ To compute it, repeatedly replace the larger pair by the divisor and the remaind
 \end{align*}
 The last nonzero remainder is $4$, so $\gcd(404,96)=4$.
 
+If $a$ and $b$ have many digits, finding the quotient and remainder in each
+round is not a single elementary instruction: it can require long division.
+Thus, Euclid's algorithm uses division as a subroutine. The number of rounds
+and the work needed for each division are separate parts of its running cost.
+
 Like long division, this procedure uses a fixed collection of operations and a
 repeat rule. We can therefore design another Turing machine whose states
 implement it.
@@ -452,6 +457,14 @@ cost.
 Our course code is $44{,}511{,}105$. Find its prime factorization.
 \end{conceptcheck}
 
+The homework is intended to make the cost of an algorithm tangible: finding
+prime factors can take much more work than checking a proposed factor by
+division. Testing whether a remaining large factor is prime is a separate
+algorithmic task. For very large integers, the difficulty of finding factors
+also motivates public-key cryptography, including RSA. This is a question of
+\emph{efficiency}, not computability: factoring is possible by a mechanical
+procedure even if a particular instance is hard to solve in practice.
+
 \subsection{Functions versus algorithms}
 
 \begin{definition}[Function and algorithm]
@@ -498,45 +511,202 @@ The key idea is that a program and ordinary data can both be represented as symb
 
 \section{The Church--Turing Thesis}
 
+Before Turing, people had an intuitive idea of computation: if a task can be
+broken into clear, fixed steps, then a trained person can solve it simply by
+following those steps. Long division and the Euclidean algorithm are examples.
+The person may need time, paper, and practice, but no new creative idea is needed
+during the calculation. The important question is whether this intuitive idea
+of a mechanical procedure can be captured by one precise mathematical model.
+
 \begin{keyidea}[Church--Turing thesis]
 Every function that is effectively computable by an algorithm can be computed by a Turing machine.
 \end{keyidea}
 
-Here, \emph{effectively computable} means computable by a mechanical, rule-following procedure. The thesis identifies this informal idea with the mathematically defined Turing-machine model.
+The Church--Turing thesis says that this intuitive kind of mechanical
+calculation and Turing-machine computation have the same power. If a human can
+calculate something by faithfully following finitely described rules, a Turing
+machine can carry out an equivalent procedure. Conversely, every Turing-machine
+computation is itself a sequence of mechanical steps. The thesis therefore
+connects our informal intuition with a formal model and gives us a precise way
+to use the word \emph{computable}.
 
-It is a \emph{thesis}, not a theorem, because ``effectively computable'' is an informal concept rather than a separately formalized mathematical definition. No proof can connect a formal model to an informal notion in the ordinary theorem-proof sense. The thesis receives strong support from the fact that many independently proposed models, including lambda calculus, register machines, general-purpose programming languages, and idealized computers with unbounded memory, have the same computational power through mutual simulation.
+Computability is only about whether some algorithm exists. It does not say that
+the algorithm is fast, memory-efficient, or practical. A computation that takes
+billions of years is still computable in this sense.
 
-A system is called \emph{Turing complete} when it can simulate a universal Turing machine, subject to the same idealization of unbounded memory and execution time. Finite control, memory that can grow without a fixed bound, and conditional looping provide the essential ingredients.
+\begin{figure}[htbp]
+  \centering
+  \includesvg[width=0.6\linewidth]{01 Figures/Computability Boundary.svg}
+  \caption{Formal models of computation identify the same boundary between
+  computable and uncomputable problems. Before the boundary is formalized, the
+  problem universe is not yet classified; the Turing machine makes the division
+  precise, and other Turing-complete models recover the same division.}
+  \label{fig:computability-boundary}
+\end{figure}
+
+\subsection{Why it is called a thesis}
+
+A \emph{thesis} and a scientific \emph{theory} play different roles; they are
+not simply earlier and later stages of the same thing. A scientific theory, such
+as the Big Bang theory, evolution by natural selection, or the curvature of
+spacetime in general relativity, explains empirical phenomena and is evaluated
+against observations. The Church--Turing thesis instead connects an informal
+human concept---what can be calculated mechanically---with a formal mathematical
+model. Evidence can make us highly confident in this connection, but the
+connection does not change into an empirical explanatory theory. That is why it
+is not expected to ``graduate'' from a thesis into a theory.
+
+\subsection{Support for the thesis}
+
+Strong support for the thesis comes from many independently proposed models of
+computation---including lambda calculus, register machines, general-purpose
+programming languages, and idealized computers with unbounded memory. Although
+these models look different, they can simulate one another and compute the same
+class of functions. Many algorithms developed before and after Turing---such as
+long division, the Euclidean algorithm, and integer multiplication---also fit
+within this class. No accepted example of an effective mechanical procedure has
+been shown to compute something beyond it.
+
+This agreement does not prove the thesis from its informal side, but it explains
+why the thesis is so widely accepted. Once a problem is known to be computable,
+we can then ask the separate question of how efficiently it can be solved.
+
+\subsection{Turing completeness}
+
+A system is called \emph{Turing complete} if it can simulate a universal Turing
+machine, assuming that memory and execution time may grow without a fixed bound.
+Finite control, expandable memory, and conditional repetition are the essential
+ingredients. The term applies the thesis at the level of a computational system:
+such a system can express every computation in the Turing-computable class.
+Turing completeness describes what the system can compute in principle, not
+whether a particular program will halt or run efficiently.
 
 \subsection{What would challenge the thesis?}
 
-A genuine counterexample would require an effective, physically realizable procedure that computes a function no Turing machine can compute. Proposals involving infinite precision or exotic space-time models challenge the physical assumptions. Ordinary quantum computers do not currently provide such a counterexample: they may change efficiency, but standard quantum computation remains within the class of Turing-computable functions.
+A genuine counterexample would be an effective mechanical procedure that
+computes a function no Turing machine can compute. Proposed ``hypercomputers''
+often depend on assumptions such as exact infinite precision, infinitely many
+steps in finite time, or exotic space-time structures. These proposals challenge
+what physical processes might be possible rather than providing an accepted
+counterexample. Ordinary quantum computers do not overturn the thesis: they may
+compute some results more efficiently, but standard quantum computation remains
+within the class of Turing-computable functions.
 
 \section{Limits of Computation}
 
-The Church--Turing thesis characterizes the power of mechanical computation, but it does not say that every clearly stated problem has an algorithmic solution.
+The Church--Turing thesis tells us what counts as mechanical computation. It
+does not say that every clearly stated problem can be solved mechanically. We
+now move from defining computation to locating its limits. Computable numbers
+first give a broad counting argument that such limits must exist; the halting
+problem then gives a specific problem and proves directly that no algorithm can
+solve it in full generality.
 
 \subsection{Computable numbers}
 
-A real number is computable if a finite program can generate its digits to any requested precision. There are only countably many finite programs but uncountably many real numbers. Therefore, most real numbers are not computable, even though familiar constants such as $\pi$ and $e$ are computable.
+Turing began with \emph{computable numbers} because producing digits is a
+simple, concrete example of computation. To ask whether a number is computable
+is to ask whether one finite mechanical procedure can produce as many of its
+digits as requested. By modeling an idealized human calculator, Turing made the
+informal phrase ``mechanically calculable'' mathematically precise. His point
+was broader than decimal expansions: the same machine model can perform any
+rule-based symbolic calculation.
+
+A real number is computable if a finite program can generate approximations to
+it to any requested precision. Every integer and rational number is computable:
+a rational number is specified by a finite numerator and denominator, and
+division can produce its decimal digits, including a repeating expansion.
+The rational numbers are countable: we can arrange numerator--denominator pairs
+on a two-dimensional grid and enumerate the grid as a one-dimensional sequence
+of natural numbers, skipping duplicate representations. This is the same basic
+idea used earlier to map a two-dimensional sheet of cells onto a one-dimensional
+Turing-machine tape.
+
+Some irrational numbers are computable too. For example, the Leibniz series
+\[
+  \pi=4\left(1-\frac13+\frac15-\frac17+\cdots\right)
+\]
+provides a rule for approximating $\pi$, although it converges slowly. Other
+algorithms can compute its digits much faster. Computability says that a finite
+rule exists; it does not promise a practical running time.
+
+There are only countably many finite programs, so there are at most countably
+many computable real numbers. The real numbers are uncountable; therefore,
+the computable reals form a measure-zero subset of the real line. This is
+not a meaningful percentage of all ``real-world problems'': unlike the reals,
+that informal collection has no specified measure. The limitation is not that
+the tape cannot hold a long output---the tape is unbounded---but that a finite
+program cannot specify a digit-generating rule for every arbitrary real number.
+Thus, the counting argument proves that noncomputable objects exist, but it
+does not yet give a concrete, ordinary-looking decision problem that we can
+identify and prove unsolvable. The halting problem supplies that next step.
 
 \subsection{The halting problem}
 
-Suppose a universal procedure $H(P,x)$ could always determine whether program $P$ eventually halts on input $x$. Construct a program $D$ that uses $H$ on its own description:
+The halting problem is a decision problem: given a program $P$ and input $x$,
+answer \emph{yes} if $P(x)$ eventually halts and \emph{no} if it runs forever.
+At first this may seem like a problem that a sufficiently clever analyzer
+should solve. We will show, however, that no single algorithm can answer it
+correctly for every possible program and input.
+
+The proof uses two ideas that also appear in familiar paradoxes:
+\emph{self-reference} and \emph{diagonalization}. The liar sentence---``This
+sentence is false''---refers to itself and contradicts either truth value
+assigned to it. In the barber paradox, a barber shaves exactly those people who
+do not shave themselves; asking whether the barber shaves himself makes either
+answer contradict the rule. Self-reference makes an object, rule, or program
+act on its own description. Diagonalization focuses on the cases in which each
+object is paired with itself and constructs a new case that gives the opposite
+answer. The halting proof turns this pattern into a precise argument about
+programs rather than a linguistic puzzle.
+
+Suppose, for contradiction, that a universal procedure $H(P,x)$ always decides
+correctly whether $P(x)$ halts. Construct a program $D$ that asks $H$ about a
+program running on its own description and then deliberately does the opposite
+of the prediction:
+\begin{center}
+\begin{minipage}{0.67\linewidth}
 \begin{lstlisting}[language=Python]
-def D():
-    if H(D, D):
+def D(P):
+    if H(P, P):
         loop_forever()
     else:
         return
 \end{lstlisting}
-If $H$ predicts that $D$ halts, $D$ loops. If $H$ predicts that $D$ loops, $D$ halts. Either answer contradicts the prediction. Therefore, no such universal halting decider exists.
+\end{minipage}
+\end{center}
+Now run $D(D)$. If $H(D,D)$ predicts that this run halts, $D(D)$ loops; if it
+predicts that the run loops, $D(D)$ halts. Either answer contradicts the
+prediction. This combination of \emph{self-reference} and a reversal of the
+predicted behavior is a diagonal argument. Therefore, no such universal
+halting decider exists.
 
-This result is a consequence of the same program-as-data principle that makes universal computation possible. A sufficiently general computer can receive descriptions of programs, including descriptions that refer to themselves.
+\boardplaceholder[4.8cm]{Classroom halting-problem diagram: a hypothetical decider $H(P,x)$ inside a program $D(P)$; $D$ loops when $H(P,P)$ says ``halts'' and returns when it says ``does not halt.'' Feed $D$ its own description to show the contradiction.}
+
+Self-reference alone is not a contradiction: ordinary recursion, such as the
+Fibonacci recurrence, also refers to itself. The contradiction arises because
+$D$ reverses a prediction about its own behavior. This construction is possible
+because programs can be represented as data---the same principle that enables
+a universal Turing machine, compiler, or interpreter to process another
+program.
 
 \begin{keyidea}[The price of universality]
 Universal computers can simulate arbitrary programs, but no universal program can perfectly predict every semantic property of arbitrary programs. Rice's theorem generalizes this limitation: every nontrivial semantic property of the function computed by an arbitrary program is undecidable.
 \end{keyidea}
+
+For example, no tool can decide for every possible program whether the function
+it computes ever outputs zero. This does not make program analysis useless.
+Static analyzers can still find many bugs and security issues by restricting
+the programs they analyze or by allowing false alarms and missed cases. Rice's
+theorem concerns nontrivial semantic behavior; it does not automatically apply
+to every syntactic or resource-usage property.
+
+The lesson is that questions about computational limits must first be stated
+precisely. This is especially important in broader discussions of AI and
+consciousness: before asking whether a machine can compute or decide a
+phenomenon, we must specify what output or decision is required. The
+Church--Turing thesis and the halting problem do not by themselves define
+consciousness or determine whether an AI system can have it; those questions
+also require conceptual and empirical investigation.
 
 \section{Stored-Program Computers}
 
@@ -679,7 +849,7 @@ Watch the CS50 Week 0 video and complete all assigned parts:
 
 \section*{Sources Used for These Notes}
 \addcontentsline{toc}{section}{Sources Used for These Notes}
-These notes synthesize the slide deck \emph{01 Computation and Abstraction.pptx}, its embedded speaker notes, and the two classroom transcripts dated 8 September 2026. The wording has been edited for clarity, and transcription errors have been corrected using the mathematical context. Blackboard drawings that were described in speech but unavailable as images remain as labeled replacement boxes.
+These notes synthesize the slide deck \emph{01 Computation and Abstraction.pptx}, its embedded speaker notes, the two classroom transcripts dated 8 September 2026, and the provided classroom transcript dated 15 September 2026. The wording has been edited for clarity, and transcription errors have been corrected using the mathematical context. Blackboard drawings that were described in speech but unavailable as images remain as labeled replacement boxes.
 
 For historical context on the Turing machine, see A. M. Turing, ``On Computable Numbers, with an Application to the Entscheidungsproblem,'' \emph{Proceedings of the London Mathematical Society}, 1936. For a detailed discussion of the Church--Turing thesis, see \url{https://plato.stanford.edu/entries/church-turing/}.
 

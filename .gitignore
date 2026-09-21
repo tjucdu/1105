@@ -1,0 +1,3 @@
+# Keep the distributable PDF in build/, but ignore LaTeX intermediates.
+build/*
+!build/*.pdf

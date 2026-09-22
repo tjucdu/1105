@@ -202,6 +202,7 @@ Problem type & Required output & Example \\
 Decision & yes or no & Is $a$ divisible by $b$? \\
 Search & a particular object or value & What is the remainder of $a/b$? \\
 Counting & the number of valid objects & How many divisors does $a$ have? \\
+Generation & a sequence or structured output & Generate successive digits of $\pi$ \\
 Optimization & the best feasible object or value & Which valid solution has minimum cost? \\
 \bottomrule
 \end{tabularx}
@@ -567,6 +568,11 @@ long division, the Euclidean algorithm, and integer multiplication---also fit
 within this class. No accepted example of an effective mechanical procedure has
 been shown to compute something beyond it.
 
+Alonzo Church approached the question through lambda calculus, while Alan
+Turing approached it through machines modeled on a human calculator. The two
+formalisms were shown to have the same computational power. Their independent
+convergence is reflected in the name \emph{Church--Turing thesis}.
+
 This agreement does not prove the thesis from its informal side, but it explains
 why the thesis is so widely accepted. Once a problem is known to be computable,
 we can then ask the separate question of how efficiently it can be solved.
@@ -575,11 +581,26 @@ we can then ask the separate question of how efficiently it can be solved.
 
 A system is called \emph{Turing complete} if it can simulate a universal Turing
 machine, assuming that memory and execution time may grow without a fixed bound.
-Finite control, expandable memory, and conditional repetition are the essential
-ingredients. The term applies the thesis at the level of a computational system:
-such a system can express every computation in the Turing-computable class.
-Turing completeness describes what the system can compute in principle, not
-whether a particular program will halt or run efficiently.
+Intuitively, such a system needs expandable memory, a way to choose among
+different actions, and a way to repeat computation without a fixed bound. These
+abilities may be expressed through arrays or maps, conditional branches,
+loops, recursion, jumps, or equivalent mechanisms; they need not look exactly
+like a Turing machine's tape and head.
+
+For example, an idealized Python implementation with unbounded memory is Turing
+complete. HTML by itself is a markup language rather than a general-purpose
+programming language: it describes document structure but does not provide the
+unbounded conditional computation required here. Real computers have finite
+memory, but Turing completeness concerns the language or machine model under
+the same idealization of memory used for a Turing machine.
+
+To establish that two models have equal computational power, we can show how
+each simulates the other: computations in one model are translated into
+computations in the other while preserving their results. Turing machines,
+lambda calculus, register machines, and general-purpose programming languages
+look different, but these mutual simulations place them on the same
+computability boundary. Turing completeness describes what a system can compute
+in principle, not whether a particular program will halt or run efficiently.
 
 \subsection{What would challenge the thesis?}
 
@@ -620,6 +641,20 @@ on a two-dimensional grid and enumerate the grid as a one-dimensional sequence
 of natural numbers, skipping duplicate representations. This is the same basic
 idea used earlier to map a two-dimensional sheet of cells onto a one-dimensional
 Turing-machine tape.
+
+The natural numbers and rational numbers therefore have the same cardinality,
+written $\aleph_0$, even though the rationals appear more densely packed. The
+real numbers have cardinality $2^{\aleph_0}$ and cannot be placed in a
+one-to-one correspondence with the natural numbers. Even the interval $[0,1]$
+has the same cardinality as the entire real line. Infinity is thus not a single
+size: the uncountable infinity of the reals is strictly larger than the
+countable infinity of finite programs.
+
+\begin{definition}[Optional set-theory note]
+The continuum hypothesis asks whether $2^{\aleph_0}=\aleph_1$. It is not needed
+for the computability argument here: countable programs already cannot cover an
+uncountable set of real numbers.
+\end{definition}
 
 Some irrational numbers are computable too. For example, the Leibniz series
 \[
@@ -689,23 +724,74 @@ because programs can be represented as data---the same principle that enables
 a universal Turing machine, compiler, or interpreter to process another
 program.
 
+\subsubsection*{Reduction: from halting to zero output}
+
+A \emph{reduction} solves one problem by translating it into another. Suppose
+there were a procedure $Z(Q,y)$ that always decided whether program $Q$ on input
+$y$ eventually returns zero. Given an arbitrary halting instance $(P,x)$,
+construct the following program:
+
+\begin{center}
+\begin{minipage}{0.67\linewidth}
+\begin{lstlisting}[language=Python]
+def Q(y):
+    P(x)
+    return 0
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+The constructed program $Q(y)$ ignores $y$ and returns zero exactly when $P(x)$
+halts. Therefore, if $Z$ existed, running $Z(Q,y)$ for any $y$ would decide the
+halting problem. Since no halting decider exists, no universal zero-output
+decider exists either. We write this relationship informally as
+\[
+  \textsc{Halting}\ \leq\ \textsc{Returns-Zero}.
+\]
+The same strategy transfers known impossibility or difficulty from one problem
+to another and appears throughout computability and complexity theory.
+
+\subsubsection*{From one reduction to Rice's theorem}
+
+Returning zero is only one property of program behavior. Rice's theorem extends
+the lesson to every nontrivial semantic property of the function computed by an
+arbitrary program: if some programs have the property and others do not, no
+single analyzer can decide that property correctly for all programs.
+
 \begin{keyidea}[The price of universality]
-Universal computers can simulate arbitrary programs, but no universal program can perfectly predict every semantic property of arbitrary programs. Rice's theorem generalizes this limitation: every nontrivial semantic property of the function computed by an arbitrary program is undecidable.
+Universal computers can simulate arbitrary programs, but for every nontrivial
+semantic property, no program can decide correctly in all cases whether an
+arbitrary program has that property.
 \end{keyidea}
 
-For example, no tool can decide for every possible program whether the function
-it computes ever outputs zero. This does not make program analysis useless.
-Static analyzers can still find many bugs and security issues by restricting
-the programs they analyze or by allowing false alarms and missed cases. Rice's
-theorem concerns nontrivial semantic behavior; it does not automatically apply
-to every syntactic or resource-usage property.
+This result does not make program analysis useless. Static analyzers can still
+find many bugs and security issues by restricting the programs they analyze or
+by allowing false alarms and missed cases. Rice's theorem concerns what a
+program computes; it does not automatically apply to every syntactic property
+or to every question about resource usage.
+
+\begin{keyidea}[Expressiveness versus decidability]
+The more behavior a system can express, the more difficult it becomes to decide
+general facts about every object in that system. Universality gives a model the
+power to represent arbitrary programs, including programs that consume their
+own descriptions; the price is that some behavioral questions become
+undecidable.
+\end{keyidea}
+
+A restricted system may be easier to analyze precisely because it rules out
+many behaviors. A highly expressive programming language admits far more useful
+programs, but no analyzer can settle every nontrivial semantic question about
+all of them. This is not a defect unique to Turing machines; any model capable
+of universal computation inherits equivalent limits.
 
 \subsection{Computation, cognition, and consciousness}
 
-The lesson is that questions about computational limits must first be stated
-precisely. \emph{Computability} asks whether a task can be carried out by a
-mechanical procedure. To study a task in this way, we must specify its inputs,
-required outputs, and the conditions under which an answer is correct.
+Having established formal limits on algorithms, we can now ask what these
+results do---and do not---tell us about the human mind. Such questions must
+first be stated precisely. \emph{Computability} asks whether a task can be
+carried out by a mechanical procedure. To study a task in this way, we must
+specify its inputs, required outputs, and the conditions under which an answer
+is correct.
 
 Many \emph{cognitive} abilities can be described as information-processing
 tasks. Calculating, recognizing patterns, remembering, planning, and using
@@ -729,7 +815,14 @@ questions require both clearer concepts and empirical investigation.
 
 \section{Stored-Program Computers}
 
-In a stored-program computer, memory contains both instructions and data. A CPU repeatedly performs a fetch--decode--execute cycle:
+The von Neumann architecture is a practical organization for an electronic
+stored-program computer. Its CPU contains a control unit, an arithmetic and
+logic unit (ALU), and a small collection of registers. One special register,
+the \emph{program counter}, holds the address of the next instruction. Main
+memory stores both instructions and data, so programs themselves can be loaded,
+copied, and modified as data.
+
+The CPU repeatedly performs a fetch--decode--execute cycle:
 \begin{enumerate}
   \item fetch the instruction whose address is in the program counter;
   \item decode the instruction;
@@ -738,7 +831,21 @@ In a stored-program computer, memory contains both instructions and data. A CPU 
 \end{enumerate}
 Conditional branches and jumps change the program counter, making selection and repetition possible.
 
-The von Neumann architecture is a prominent organization of this idea: a processor communicates with a shared memory that stores both code and data. It is a practical architecture, while a Turing machine is a mathematical model. Both embody finite control operating on expandable memory.
+A Turing-machine tape is accessed by moving one cell at a time. Modern main
+memory instead behaves as random-access memory: a processor supplies an address
+and accesses that location directly. A finite address width places a physical
+limit on real memory, even though theoretical analysis often treats memory as
+expandable. Electronic computers also specialize the tape alphabet to binary
+symbols represented physically by circuits.
+
+The Turing machine is therefore a mathematical model of what can be computed,
+whereas the von Neumann architecture is an engineering organization for
+building electronic computers. Both combine finite control with writable
+memory, but the architecture adds practical structures---addressed memory, an
+ALU, registers, buses, and input/output---to execute instructions efficiently.
+Storing code and data in shared memory enables general-purpose computing, while
+also requiring protection mechanisms so that data cannot be mistaken for or
+used to corrupt executable instructions.
 
 \boardplaceholder[6.0cm]{Von Neumann architecture: CPU with control unit, ALU, registers and program counter; shared memory containing code and data; input/output connections.}
 
@@ -748,20 +855,55 @@ Computability asks whether some algorithm exists. Complexity asks how resources 
 
 \subsection{Input size and asymptotic growth}
 
-For an integer, input size usually means the number of digits or bits, not the integer's numerical value. If a decimal integer has $n$ digits, a digit-by-digit algorithm naturally performs work as a function of $n$.
+For an integer, input size usually means the number of digits or bits, not the
+integer's numerical value. If a decimal integer has $n$ digits, a digit-by-digit
+algorithm naturally performs work as a function of $n$. At the machine level we
+normally measure the binary representation, so an integer $N$ requires about
+$\log_2 N$ bits. Complexity statements are meaningful only after the input size
+has been identified.
 
-Big-$O$ notation describes an asymptotic upper bound. It suppresses constant factors, lower-order terms, exact processor speed, and behavior on small inputs. Common growth rates include
+Big-$O$ notation describes an asymptotic upper bound. Formally, $f(n)=O(g(n))$
+if there are constants $c>0$ and $n_0$ such that
 \[
- O(1),\quad O(\log n),\quad O(n),\quad O(n\log n),\quad
- O(n^2),\quad O(2^n).
+  0\le f(n)\le c\,g(n) \qquad\text{for every }n\ge n_0.
 \]
-For sufficiently large $n$, the shape of the growth function matters more than small constant differences.
+It suppresses constant factors, lower-order terms, exact processor speed, and
+behavior on small inputs. For example,
+\[
+  n^2+n+1=O(n^2),
+  \qquad
+  2^n+n^3+n^2=O(2^n).
+\]
+Common growth rates include
+\[
+  O(1),\quad O(\log n),\quad O(n),\quad O(n\log n),\quad
+ O(n^2),\quad O(n^3),\quad O(2^n),\quad O(n!).
+\]
+For sufficiently large $n$, the shape of the growth function matters more than
+small constant differences. Polynomial-time bounds such as $O(n)$, $O(n^2)$,
+and $O(n^k)$ are treated as efficient in complexity theory. Exponential and
+factorial growth quickly become infeasible as $n$ increases. In practice, even
+a polynomial algorithm may be too costly when its exponent or constant factors
+are large, so linear or near-linear algorithms are often preferred.
+
+\boardplaceholder[5.2cm]{Growth-rate curves for $O(1)$, $O(\log n)$, $O(n)$,
+$O(n\log n)$, $O(n^2)$, $O(2^n)$, and $O(n!)$, showing the polynomial-time
+region and the rapid growth beyond it.}
 
 \subsection{Searching an attendance list}
 
-Finding a name in an unsorted list by checking entries in order takes $O(n)$ time. If the list is sorted, binary search takes $O(\log n)$ comparisons: about $7$ comparisons for roughly $100$ entries and about $30$ for one billion entries. A hash table can provide $O(1)$ expected lookup time by using additional memory and preprocessing.
+Finding a name in an unsorted attendance list by checking entries in order takes
+$O(n)$ time and $O(1)$ extra space. If the list is sorted, binary search takes
+$O(\log n)$ comparisons: about $7$ for roughly $100$ entries, $20$ for one
+million, and $30$ for one billion. Binary search depends on the list already
+being sorted.
 
-This example illustrates a recurring time--space tradeoff: a method may run faster because it stores a more helpful representation of the data.
+A hash table records where values are stored. After preprocessing, it provides
+$O(1)$ expected lookup time while using $O(n)$ additional space. Remembering the
+location of your own name resembles one constant-time lookup; a general
+algorithm must store locations for all names if it is to answer arbitrary
+queries. This example illustrates both the importance of input representation
+and the recurring time--space tradeoff.
 
 \subsection{Fibonacci numbers}
 
@@ -783,7 +925,27 @@ Iterative & $O(n)$ & $O(1)$ & Keeps only the two latest values \\
 \end{tabularx}
 \end{center}
 
+Naive recursion follows the mathematical recurrence directly, but its call tree
+recomputes values such as $F(n-2)$ many times. Only one root-to-leaf chain must
+remain active at a time, so the recursion uses $O(n)$ stack space even though
+the total number of calls is exponential. Dynamic programming eliminates the
+repetition by storing a table of earlier values. Iteration observes that the
+next value depends only on the previous two, so it keeps two variables and
+reduces the extra space to $O(1)$. A recursive definition therefore does not
+force us to use a recursive algorithm.
+
 \boardplaceholder[5.5cm]{Recursion tree for naive Fibonacci, highlighting repeated calls such as $F(n-2)$.}
+
+\subsubsection*{A modern example: attention and long inputs}
+
+The same growth-rate reasoning appears in modern machine learning. Standard
+full self-attention compares each of $n$ tokens with every other token, giving
+a quadratic $O(n^2)$ interaction pattern. Very long inputs can therefore
+require substantial time and memory. Architectures that restrict, summarize,
+or reuse earlier information may approach linear processing, but they change
+what information is retained or compared directly. The simpler search and
+Fibonacci examples give us the vocabulary needed to recognize this practical
+tradeoff.
 
 \subsection{P and NP}
 
@@ -791,12 +953,53 @@ Iterative & $O(n)$ & $O(1)$ & Keeps only the two latest values \\
 \textbf{P} is the class of decision problems solvable in polynomial time. \textbf{NP} is the class of decision problems for which a proposed yes-certificate can be verified in polynomial time.
 \end{definition}
 
-Every problem in P is in NP because a problem that can be solved efficiently can also have its answer verified efficiently. Whether every NP problem is also in P remains unknown:
+The letters NP stand for \emph{nondeterministic polynomial time}, not
+``non-polynomial.'' The certificate definition above is the most accessible
+equivalent view: a yes-answer may be difficult to discover, but once a suitable
+witness is supplied, a deterministic algorithm can check it efficiently.
+
+Every problem in P is in NP because a problem that can be solved efficiently
+can also have its answer verified efficiently. Whether every NP problem is also
+in P remains unknown:
 \[
   \mathrm{P}\stackrel{?}{=}\mathrm{NP}.
 \]
 
-Subset Sum illustrates the distinction. Given integers and a target, the decision problem asks whether some subset sums to the target. A proposed subset is easy to check, but naive search examines as many as $2^n$ subsets. This does not prove that the problem lacks a polynomial-time algorithm; it explains why verification may appear much easier than discovery.
+Subset Sum illustrates the distinction. Given integers
+$s_1,\ldots,s_n$ and a target $T$, the decision problem asks whether there are
+choices $b_i\in\{0,1\}$ such that
+\[
+  \sum_{i=1}^{n} b_i s_i=T.
+\]
+A proposed set of choices can be checked in $O(n)$ arithmetic operations, but
+naive search examines as many as $2^n$ subsets. The exponential brute-force
+algorithm does not prove that no polynomial-time algorithm exists; that missing
+proof is precisely part of the P-versus-NP difficulty. Most computer scientists
+believe that $\mathrm{P}\ne\mathrm{NP}$, reflecting the intuition that finding a
+solution can be fundamentally harder than checking one, but this belief is not
+a proof.
+
+\boardplaceholder[5.2cm]{Complexity-class diagram inside the computable region:
+$\mathrm{P}\subseteq\mathrm{NP}$, with two possible pictures for
+$\mathrm{P}=\mathrm{NP}$ and $\mathrm{P}\ne\mathrm{NP}$; place exponential-time
+algorithms outside the polynomial-time region without implying that a problem
+with a known exponential algorithm cannot also have a better algorithm.}
+
+\subsection{The complexity zoo}
+
+Complexity theory groups problems by the resources required to solve them and
+by the computational models allowed. P and NP are only two members of a much
+larger ``complexity zoo.'' Other classes capture logarithmic space, randomized
+computation, parallel computation, counting, interactive proofs, and many other
+resource restrictions. Some containments and separations are known, while
+others remain open.
+
+The reduction method introduced with the halting problem also organizes this
+zoo. Here the translation itself must be efficient: if every instance of
+problem $A$ can be translated in polynomial time into an instance of problem
+$B$, then an efficient algorithm for $B$ would also give an efficient algorithm
+for $A$. Instead of analyzing every problem from scratch, computer scientists
+compare a new problem with problems whose complexity is already understood.
 
 \section{Hierarchical Abstraction}
 
@@ -828,16 +1031,18 @@ Abstraction does not erase lower layers. It allows us to ignore them until perfo
 \begin{conceptcheck}[You should be able to explain each pair or relationship]
 \begin{itemize}
   \item input, output, instruction, algorithm, and function;
-  \item decision, search, counting, and optimization problems;
+  \item decision, search, counting, generation, and optimization problems;
   \item model, simulation, mechanical procedure, and computability;
   \item tape, state, transition function, and halting state;
   \item Turing machine, universal Turing machine, and Turing completeness;
   \item stored-program computer, von Neumann architecture, and program counter;
   \item thesis versus theorem, and the Church--Turing thesis;
-  \item computability versus decidability, including the halting problem;
+  \item cardinality, countability, and computable numbers;
+  \item computability versus decidability, including the halting problem and reduction;
+  \item expressiveness versus decidability;
   \item input size, Big-$O$, time complexity, and space complexity;
   \item recursion, dynamic programming, and iterative computation;
-  \item P, NP, efficient solution, and efficient verification;
+  \item P, NP, efficient solution, efficient verification, and the complexity zoo;
   \item abstraction, interface, implementation, and leaky abstraction.
 \end{itemize}
 \end{conceptcheck}
@@ -853,6 +1058,8 @@ Abstraction does not erase lower layers. It allows us to ignore them until perfo
   \item What information must a universal Turing machine receive to simulate another machine?
   \item Why is the Church--Turing statement called a thesis rather than a theorem?
   \item How does program-as-data enable both stored-program computing and the halting-problem proof?
+  \item How does a reduction from halting show that no program can decide whether every arbitrary program returns zero?
+  \item Why can greater expressiveness make general behavioral questions less decidable?
   \item Compare linear search, binary search, and hash lookup. What assumptions and tradeoffs distinguish them?
   \item Why do naive recursion and iteration have different costs for Fibonacci numbers even though both compute $F(n)$?
   \item State the P versus NP question without saying that NP means ``non-polynomial.''
@@ -861,14 +1068,22 @@ Abstraction does not erase lower layers. It allows us to ignore them until perfo
 
 \section*{Homework}
 \addcontentsline{toc}{section}{Homework}
-Watch the CS50 Week 0 video and complete all assigned parts:
-\begin{center}
-\url{https://cs50.harvard.edu/x/weeks/0/}
-\end{center}
+For Homework 2, watch the assigned materials on the following two views of
+computer science:
+\begin{itemize}
+  \item \emph{The Map of Computer Science}, which surveys the major areas and
+  topics studied across the discipline;
+  \item the \emph{Nand to Tetris} overview, which follows the abstraction stack
+  from logic gates and circuits through machine instructions, operating systems,
+  and applications.
+\end{itemize}
+Use the first as a horizontal map of the field and the second as a vertical map
+of how a computer system is built. Review the concept checklist in preparation
+for a short quiz in the next lecture.
 
 \section*{Sources Used for These Notes}
 \addcontentsline{toc}{section}{Sources Used for These Notes}
-These notes synthesize the slide deck \emph{01 Computation and Abstraction.pptx}, its embedded speaker notes, the two classroom transcripts dated 8 September 2026, and the provided classroom transcript dated 15 September 2026. The wording has been edited for clarity, and transcription errors have been corrected using the mathematical context. Blackboard drawings that were described in speech but unavailable as images remain as labeled replacement boxes.
+These notes synthesize the slide deck \emph{01 Computation and Abstraction.pptx}, its embedded speaker notes, the two classroom transcripts dated 8 September 2026, and the provided classroom transcripts dated 15 and 22 September 2026. The wording has been edited for clarity, and transcription errors have been corrected using the mathematical context. Blackboard drawings that were described in speech but unavailable as images remain as labeled replacement boxes.
 
 For historical context on the Turing machine, see A. M. Turing, ``On Computable Numbers, with an Application to the Entscheidungsproblem,'' \emph{Proceedings of the London Mathematical Society}, 1936. For a detailed discussion of the Church--Turing thesis, see \url{https://plato.stanford.edu/entries/church-turing/}.
 

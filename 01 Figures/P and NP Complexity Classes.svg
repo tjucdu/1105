@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="684pt" height="402.48pt" viewBox="0 0 684 402.48" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-09-24T07:15:35.844686</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 402.48 
+L 684 402.48 
+L 684 -0 
+L 0 -0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 342 348.156 
+C 421.910998 348.156 498.559807 332.383928 555.065415 304.3134 
+C 611.571024 276.242872 643.32 238.165722 643.32 198.468 
+C 643.32 158.770278 611.571024 120.693128 555.065415 92.6226 
+C 498.559807 64.552072 421.910998 48.78 342 48.78 
+C 262.089002 48.78 185.440193 64.552072 128.934585 92.6226 
+C 72.428976 120.693128 40.68 158.770278 40.68 198.468 
+C 40.68 238.165722 72.428976 276.242872 128.934585 304.3134 
+C 185.440193 332.383928 262.089002 348.156 342 348.156 
+L 342 348.156 
+z
+" clip-path="url(#p7b859926b8)" style="fill: none; stroke: #000000; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 353.16 303.804 
+C 410.873499 303.804 466.230971 291.536833 507.040578 269.7042 
+C 547.850184 247.871567 570.78 218.256006 570.78 187.38 
+C 570.78 156.503994 547.850184 126.888433 507.040578 105.0558 
+C 466.230971 83.223167 410.873499 70.956 353.16 70.956 
+C 295.446501 70.956 240.089029 83.223167 199.279422 105.0558 
+C 158.469816 126.888433 135.54 156.503994 135.54 187.38 
+C 135.54 218.256006 158.469816 247.871567 199.279422 269.7042 
+C 240.089029 291.536833 295.446501 303.804 353.16 303.804 
+L 353.16 303.804 
+z
+" clip-path="url(#p7b859926b8)" style="fill: none; stroke: #000000; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 244.35 249.75 
+C 273.206749 249.75 300.885486 243.178303 321.290289 231.48225 
+C 341.695092 219.786197 353.16 203.920717 353.16 187.38 
+C 353.16 170.839283 341.695092 154.973803 321.290289 143.27775 
+C 300.885486 131.581697 273.206749 125.01 244.35 125.01 
+C 215.493251 125.01 187.814514 131.581697 167.409711 143.27775 
+C 147.004908 154.973803 135.54 170.839283 135.54 187.38 
+C 135.54 203.920717 147.004908 219.786197 167.409711 231.48225 
+C 187.814514 243.178303 215.493251 249.75 244.35 249.75 
+L 244.35 249.75 
+z
+" clip-path="url(#p7b859926b8)" style="fill: none; stroke: #000000; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 492.102 366.4512 
+L 655.038 366.4512 
+Q 658.944 366.4512 658.944 362.5704 
+L 658.944 303.2496 
+Q 658.944 299.3688 655.038 299.3688 
+L 492.102 299.3688 
+Q 488.196 299.3688 488.196 303.2496 
+L 488.196 362.5704 
+Q 488.196 366.4512 492.102 366.4512 
+L 492.102 366.4512 
+z
+" clip-path="url(#p7b859926b8)" style="fill: none; stroke: #000000; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 488.300284 323.083307 
+Q 459.181831 300.201839 431.382015 278.356564 
+" clip-path="url(#p7b859926b8)" style="fill: none; stroke: #000000; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 433.864235 283.613806 
+L 431.382015 278.356564 
+L 437.07714 279.525133 
+z
+" clip-path="url(#p7b859926b8)" style="fill: #1f77b4; stroke: #000000; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 21px; font-family: 'DejaVu Sans'; text-anchor: middle" x="342" y="43.236" transform="rotate(-0 342 43.236)">Computable problems</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 24px; font-family: 'DejaVu Sans'; text-anchor: middle" x="353.16" y="87.588" transform="rotate(-0 353.16 87.588)">NP</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 27px; font-family: 'DejaVu Sans'; text-anchor: middle" x="244.35" y="194.830312" transform="rotate(-0 244.35 194.830312)">P</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'" transform="translate(414.26875 177.860656)">Verification</text>
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'" transform="translate(417.3225 193.537594)">is efficient</text>
+   </g>
+   <g id="text_5">
+    <!-- $P \subseteq NP$ is known -->
+    <g transform="translate(193 274.127187)">
+     <text>
+      <tspan x="0" y="-0.125" style="font-style: oblique; font-size: 13px; font-family: 'DejaVu Sans'">P</tspan>
+      <tspan x="23.797363" y="-0.125" style="font-style: oblique; font-size: 13px; font-family: 'DejaVu Sans'">N</tspan>
+      <tspan x="33.521973" y="-0.125" style="font-style: oblique; font-size: 13px; font-family: 'DejaVu Sans'">P</tspan>
+      <tspan x="10.37207" y="-0.125" style="font-size: 13px; font-family: 'DejaVu Sans'">⊆</tspan>
+      <tspan x="41.361328" y="-0.125" style="font-size: 13px; font-family: 'DejaVu Sans'"> </tspan>
+      <tspan x="45.493652" y="-0.125" style="font-size: 13px; font-family: 'DejaVu Sans'">i</tspan>
+      <tspan x="49.105469" y="-0.125" style="font-size: 13px; font-family: 'DejaVu Sans'">s</tspan>
+      <tspan x="55.878418" y="-0.125" style="font-size: 13px; font-family: 'DejaVu Sans'"> </tspan>
+      <tspan x="60.010742" y="-0.125" style="font-size: 13px; font-family: 'DejaVu Sans'">k</tspan>
+      <tspan x="67.539062" y="-0.125" style="font-size: 13px; font-family: 'DejaVu Sans'">n</tspan>
+      <tspan x="75.77832" y="-0.125" style="font-size: 13px; font-family: 'DejaVu Sans'">o</tspan>
+      <tspan x="83.731934" y="-0.125" style="font-size: 13px; font-family: 'DejaVu Sans'">w</tspan>
+      <tspan x="94.364258" y="-0.125" style="font-size: 13px; font-family: 'DejaVu Sans'">n</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'" transform="translate(483.989062 239.412562)">known algorithm</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'" transform="translate(473.779688 252.849937)">need not be optimal</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle" x="573.57" y="328.179925" transform="rotate(-0 573.57 328.179925)">Subset Sum</text>
+   </g>
+   <g id="text_8">
+    <!-- brute force: $O(2^n)$ -->
+    <g transform="translate(520.23 349.80405)">
+     <text>
+      <tspan x="0" y="-0.703125" style="font-size: 12px; font-family: 'DejaVu Sans'">b</tspan>
+      <tspan x="7.617188" y="-0.703125" style="font-size: 12px; font-family: 'DejaVu Sans'">r</tspan>
+      <tspan x="12.550781" y="-0.703125" style="font-size: 12px; font-family: 'DejaVu Sans'">u</tspan>
+      <tspan x="20.15625" y="-0.703125" style="font-size: 12px; font-family: 'DejaVu Sans'">t</tspan>
+      <tspan x="24.861328" y="-0.703125" style="font-size: 12px; font-family: 'DejaVu Sans'">e</tspan>
+      <tspan x="32.244141" y="-0.703125" style="font-size: 12px; font-family: 'DejaVu Sans'"> </tspan>
+      <tspan x="36.058594" y="-0.703125" style="font-size: 12px; font-family: 'DejaVu Sans'">f</tspan>
+      <tspan x="40.283203" y="-0.703125" style="font-size: 12px; font-family: 'DejaVu Sans'">o</tspan>
+      <tspan x="47.625" y="-0.703125" style="font-size: 12px; font-family: 'DejaVu Sans'">r</tspan>
+      <tspan x="52.558594" y="-0.703125" style="font-size: 12px; font-family: 'DejaVu Sans'">c</tspan>
+      <tspan x="59.15625" y="-0.703125" style="font-size: 12px; font-family: 'DejaVu Sans'">e</tspan>
+      <tspan x="66.539062" y="-0.703125" style="font-size: 12px; font-family: 'DejaVu Sans'">:</tspan>
+      <tspan x="70.582031" y="-0.703125" style="font-size: 12px; font-family: 'DejaVu Sans'"> </tspan>
+      <tspan x="83.841797" y="-0.703125" style="font-size: 12px; font-family: 'DejaVu Sans'">(</tspan>
+      <tspan x="88.523438" y="-0.703125" style="font-size: 12px; font-family: 'DejaVu Sans'">2</tspan>
+      <tspan x="101.925" y="-0.703125" style="font-size: 12px; font-family: 'DejaVu Sans'">)</tspan>
+      <tspan x="74.396484" y="-0.703125" style="font-style: oblique; font-size: 12px; font-family: 'DejaVu Sans'">O</tspan>
+      <tspan x="96.273047" y="-5.296875" style="font-style: oblique; font-size: 8.4px; font-family: 'DejaVu Sans'">n</tspan>
+     </text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p7b859926b8">
+   <rect x="7.2" y="7.2" width="669.6" height="388.08"/>
+  </clipPath>
+ </defs>
+</svg>

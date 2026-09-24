@@ -715,7 +715,11 @@ prediction. This combination of \emph{self-reference} and a reversal of the
 predicted behavior is a diagonal argument. Therefore, no such universal
 halting decider exists.
 
-\boardplaceholder[4.8cm]{Classroom halting-problem diagram: a hypothetical decider $H(P,x)$ inside a program $D(P)$; $D$ loops when $H(P,P)$ says ``halts'' and returns when it says ``does not halt.'' Feed $D$ its own description to show the contradiction.}
+\begin{figure}[htbp]
+  \centering
+  \includesvg[width=\linewidth]{01 Figures/Halting Problem.svg}
+  \caption{The halting problem decider $H$ and the diagonal program $D$ lead to a contradiction.}
+\end{figure}
 
 Self-reference alone is not a contradiction: ordinary recursion, such as the
 Fibonacci recurrence, also refers to itself. The contradiction arises because
@@ -847,8 +851,11 @@ Storing code and data in shared memory enables general-purpose computing, while
 also requiring protection mechanisms so that data cannot be mistaken for or
 used to corrupt executable instructions.
 
-\boardplaceholder[6.0cm]{Von Neumann architecture: CPU with control unit, ALU, registers and program counter; shared memory containing code and data; input/output connections.}
-
+\begin{figure}[htbp]
+  \centering
+  \includesvg[width=\linewidth]{01 Figures/Von Neumann Architecture.svg}
+  \caption{Von Neumann stored-program architecture: CPU, shared memory for code and data, and I/O.}
+\end{figure}
 \section{Complexity: The Cost of Computation}
 
 Computability asks whether some algorithm exists. Complexity asks how resources grow with input size. The most common resources are running time and memory.
@@ -886,9 +893,11 @@ factorial growth quickly become infeasible as $n$ increases. In practice, even
 a polynomial algorithm may be too costly when its exponent or constant factors
 are large, so linear or near-linear algorithms are often preferred.
 
-\boardplaceholder[5.2cm]{Growth-rate curves for $O(1)$, $O(\log n)$, $O(n)$,
-$O(n\log n)$, $O(n^2)$, $O(2^n)$, and $O(n!)$, showing the polynomial-time
-region and the rapid growth beyond it.}
+\begin{figure}[htbp]
+  \centering
+  \includesvg[width=\linewidth]{01 Figures/Growth Rate Curves.svg}
+  \caption{Common growth rates of algorithm complexities (log scale).}
+\end{figure}
 
 \subsection{Searching an attendance list}
 
@@ -934,7 +943,11 @@ next value depends only on the previous two, so it keeps two variables and
 reduces the extra space to $O(1)$. A recursive definition therefore does not
 force us to use a recursive algorithm.
 
-\boardplaceholder[5.5cm]{Recursion tree for naive Fibonacci, highlighting repeated calls such as $F(n-2)$.}
+\begin{figure}[htbp]
+  \centering
+  \includesvg[width=\linewidth]{01 Figures/Fibonacci Recursion Tree.svg}
+  \caption{Naive recursive Fibonacci recomputes the same subproblems: time $O(2^n)$, stack depth $O(n)$.}
+\end{figure}
 
 \subsubsection*{A modern example: attention and long inputs}
 
@@ -979,11 +992,11 @@ believe that $\mathrm{P}\ne\mathrm{NP}$, reflecting the intuition that finding a
 solution can be fundamentally harder than checking one, but this belief is not
 a proof.
 
-\boardplaceholder[5.2cm]{Complexity-class diagram inside the computable region:
-$\mathrm{P}\subseteq\mathrm{NP}$, with two possible pictures for
-$\mathrm{P}=\mathrm{NP}$ and $\mathrm{P}\ne\mathrm{NP}$; place exponential-time
-algorithms outside the polynomial-time region without implying that a problem
-with a known exponential algorithm cannot also have a better algorithm.}
+\begin{figure}[htbp]
+  \centering
+  \includesvg[width=\linewidth]{01 Figures/P and NP Complexity Classes.svg}
+  \caption{P is contained in NP; efficient verification versus exponential brute force.}
+\end{figure}
 
 \subsection{The complexity zoo}
 
@@ -1013,7 +1026,11 @@ When writing \texttt{2 + 3} in Python, a programmer does not need to reason abou
 
 Likewise, clicking \emph{Send} in a messaging application may involve the application interface, operating-system services, network protocols, device drivers, hardware, and physical signals. No single application developer needs to rebuild all of these layers.
 
-\boardplaceholder[7.0cm]{Hierarchical abstraction stack, for example: user $\rightarrow$ application $\rightarrow$ operating system $\rightarrow$ network or instruction-set layer $\rightarrow$ hardware $\rightarrow$ physical signals.}
+\begin{figure}[htbp]
+  \centering
+  \includesvg[width=\linewidth]{01 Figures/Hierarchical Abstraction Stack.svg}
+  \caption{Abstraction layers from physical signals up to the user.}
+\end{figure}
 
 \subsection{Leaky abstractions}
 
